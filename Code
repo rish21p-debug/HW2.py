@@ -24,20 +24,29 @@ class Course:
         CMPSC132(3): Programming in Python II
     '''
     def __init__(self, cid, cname, credits):
-        # YOUR CODE STARTS HERE
+        # Task: Initialize a new course object.
+        # Input: cid (str) - course id, cname (str) - course name, credits (int) - number of credits.
+        # Output: None.
+        # How program works: Saves the course ID, name, and credit amount to instance variables.
         self.cid = cid
         self.cname = cname
         self.credits = credits
 
 
     def __str__(self):
-        # YOUR CODE STARTS HERE
+        # Task: Return a string representation of the course.
+        # Input: None.
+        # Output: A formatted string.
+        # How: Returns a string combining the course ID, credits, and full title.
         return f"{self.cid}({self.credits}): {self.cname}"
 
     __repr__ = __str__
 
     def __eq__(self, other):
-        # YOUR CODE STARTS HERE
+        # Task: Check if two course objects are the same.
+        # Input: other - object to compare.
+        # Output: Bool: True or False.
+        # How: Checks if the other object is a Course, then compares their course IDs.
         if isinstance(other, Course):
             return self.cid == other.cid
         return False
@@ -61,18 +70,27 @@ class Catalog:
     '''
 
     def __init__(self):
-        # YOUR CODE STARTS HERE
+        # Task: Initialize an empty course catalog.
+        # Input: None.
+        # Output: None.
+        # How: Creates an empty dictionary to store course offerings using IDs as keys.
         self.courseOfferings = {}
 
     def addCourse(self, cid, cname, credits):
-        # YOUR CODE STARTS HERE
+        # Task: Add a new course to the catalog list
+        # Input: cid(course id) as a string, cname(course name) as a string, credits(number of credits) as an integer.
+        # Output: A string that says whether it was a success or a duplicate course.
+        # How: Checks if the course already exists, then adds it to the catalog if it doesn't.
         if cid in self.courseOfferings:
             return "Course already added"
         self.courseOfferings[cid] = Course(cid, cname, credits)
         return "Course added successfully"
 
     def removeCourse(self, cid):
-        # YOUR CODE STARTS HERE
+        # Task: Remove a course from the catalog list
+        # Input: cid(course id) as a string.
+        # Output: A string that displays a success or failure message.
+        # How: Checks if the course exists, then removes it from the catalog.
         if cid not in self.courseOfferings:
             return "Course not found"
         del self.courseOfferings[cid]
@@ -85,7 +103,10 @@ class Catalog:
                 course_info = f.readlines()
         except FileNotFoundError:
             course_info = []
-        # YOUR CODE STARTS HERE
+        # Task: Load the course data from a CSV file.
+        # Input: A file as a string
+        # Output: None.
+        # How: The function reads file lines, splits rows by commas, and calls addCourse for every entry.
         for line in course_info:
             cleaned_line = line.strip()
             if cleaned_line:
@@ -138,13 +159,19 @@ class Semester:
 
 
     def __init__(self):
-        # --- YOUR CODE STARTS HERE
+        # Task: Create a dictionary for courses in a semester.
+        # Input: None.
+        # Output: None.
+        # How: Creates an empty dictionary to hold enrolled courses for the term.
         self.courses = {}
 
 
 
     def __str__(self):
-        # YOUR CODE STARTS HERE
+        # Task: To convert current courses into a string.
+        # Input: None.
+        # Output: A joined string of course IDs.
+        # How: Joins all the registered course keys with semicolons or returns 'No courses'.
         if not self.courses:
             return "No courses"
         return "; ".join(self.courses.keys())
@@ -152,20 +179,29 @@ class Semester:
     __repr__ = __str__
 
     def addCourse(self, course):
-        # YOUR CODE STARTS HERE
+        # Task: Add a course instance to the current semester.
+        # Input: course - Course object instance.
+        # Output: Error string or None.
+        # How: Prevents any duplicates by checking keys before updating dictionary.
         if course.cid in self.courses:
             return "Course already added"
         self.courses[course.cid] = course
 
     def dropCourse(self, course):
-        # YOUR CODE STARTS HERE
+        # Task: Delete a course from the semester.
+        # Input: course that needs to be dropped.
+        # Output: Error string or None.
+        # How: Removes the course key if it is in the dictionary.
         if course.cid not in self.courses:
             return "No such course"
         del self.courses[course.cid]
 
     @property
     def totalCredits(self):
-        # YOUR CODE STARTS HERE
+        # Task: To count up total credits for the term.
+        # Input: None.
+        # Output: An integer value of credits.
+        # How: Uses a for loop to go through all values in the course map and then sums up their credit properties.
         credit_sum = 0
         for c in self.courses.values():
             credit_sum += c.credits
@@ -173,7 +209,10 @@ class Semester:
 
     @property
     def isFullTime(self):
-        # YOUR CODE STARTS HERE
+        # Task: Determine if a student meets full-time rules.
+        # Input: None.
+        # Output: Bool: True or False.
+        # How: Checks if the total calculated credits are at least 12.
         return self.totalCredits >= 12
 
     
@@ -198,13 +237,19 @@ class Loan:
     
 
     def __init__(self, amount):
-        # YOUR CODE STARTS HERE
+        # Task: To setup a new student loan record.
+        # Input: The amount(as an integer or float) of money requested.
+        # Output: None.
+        # How: Saves the balance amount and assigns a random 5-digit loan ID.
         self.amount = amount
         self.loan_id = self.__getloanID
 
 
     def __str__(self):
-        # YOUR CODE STARTS HERE
+        # Task: To create a display string for the loan balance.
+        # Input: None.
+        # Output: A balance message as a string.
+        # How: Puts the amount directly into a dollar-sign statement.
         return f"Balance: ${self.amount}"
 
     __repr__ = __str__
@@ -212,7 +257,10 @@ class Loan:
 
     @property
     def __getloanID(self):
-        # YOUR CODE STARTS HERE
+        # Task: Get a random number for the loan ID.
+        # Input: None.
+        # Output: A random integer.
+        # How: Uses the random library to pick a number between 10000 and 99999.
         return random.randint(10000, 99999)
 
 
@@ -234,23 +282,35 @@ class Person:
     '''
 
     def __init__(self, name, ssn):
-        # YOUR CODE STARTS HERE
+        # Task: To set up a profile for a person.
+        # Input: name (str), ssn (str).
+        # Output: None.
+        # How: Saves the name openly and hides the SSN in a private variable.
         self.name = name
         self.__ssn = ssn
 
     def __str__(self):
-        # YOUR CODE STARTS HERE
+        # Task: Get a safe display string for the person.
+        # Input: None.
+        # Output: A redacted text string.
+        # How: Uses just the last 4 digits of the private SSN to hide the full number.
         last_four = self.__ssn[-4:]
         return f"Person({self.name}, ***-**-{last_four})"
 
     __repr__ = __str__
 
     def get_ssn(self):
-        # YOUR CODE STARTS HERE
+        # Task: To get the private SSN.
+        # Input: None.
+        # Output: The SSN as a string.
+        # How: Returns the private SSN variable.
         return self.__ssn
 
     def __eq__(self, other):
-        # YOUR CODE STARTS HERE
+        # Task: To check if two person objects are the same person.
+        # Input: other which is the object to check against.
+        # Output: A bool: true or false.
+        # How: Checks if the other object is a Person, then compares their real SSNs.
         if isinstance(other, Person):
             return self.get_ssn() == other.get_ssn()
         return False
@@ -291,13 +351,19 @@ class Staff(Person):
         {1: CMPSC 132}
     '''
     def __init__(self, name, ssn, supervisor=None):
-        # YOUR CODE STARTS HERE
+        # Task: To set up a new staff member profile.
+        # Input: name (str), ssn (str), supervisor (Staff object, optional).
+        # Output: None.
+        # How: Uses the parent class for name and SSN, and then links a manager to the supervisor field.
         super().__init__(name, ssn)
         self.__supervisor = supervisor
 
 
     def __str__(self):
-        # YOUR CODE STARTS HERE
+        # Task: To get a safe display string for the staff member.
+        # Input: None.
+        # Output: A string representing the staff member.
+        # How: Returns a  string with the staff member's name and ID.
         return f"Staff({self.name}, {self.id})"
 
     __repr__ = __str__
@@ -305,7 +371,10 @@ class Staff(Person):
 
     @property
     def id(self):
-        # YOUR CODE STARTS HERE
+        # Task: To create a unique system ID for the staff member.
+        # Input: None.
+        # Output: The staff ID string.
+        # How: Takes the first letter of each name in lowercase, adds the last 4 of the SSN, and puts '905' in front.
         names = self.name.split()
         initials = ""
         for n in names:
@@ -316,36 +385,54 @@ class Staff(Person):
 
     @property   
     def getSupervisor(self):
-        # YOUR CODE STARTS HERE
+        # Task: To look up who a staff member reports to.
+        # Input: None.
+        # Output: Staff object or None.
+        # How: Returns the private supervisor variable.
         return self.__supervisor
 
     def setSupervisor(self, new_supervisor):
-        # YOUR CODE STARTS HERE
+        # Task: To set the supervisor for the staff member.
+        # Input: new_supervisor as a Staff object.
+        # Output: A string that shows completion.
+        # How: Sets the private supervisor variable if the input is a Staff object.
         if isinstance(new_supervisor, Staff):
             self.__supervisor = new_supervisor
             return "Completed!"
 
 
     def applyHold(self, student):
-        # YOUR CODE STARTS HERE
+        # Task: To apply a hold to a student.
+        # Input: student as a Student object.
+        # Output: A string that shows completion.
+        # How: Sets the student's hold attribute to True if the input is a Student object.
         if isinstance(student, Student):
             student.hold = True
             return "Completed!"
 
     def removeHold(self, student):
-        # YOUR CODE STARTS HERE
+        # Task: To remove a hold from a student.
+        # Input: student as a Student object.
+        # Output: A string that shows completion.
+        # How: Sets the student's hold attribute to False if the input is a Student object.
         if isinstance(student, Student):
             student.hold = False
             return "Completed!"
 
     def unenrollStudent(self, student):
-        # YOUR CODE STARTS HERE
+        # Task: To unenroll a student.
+        # Input: student as a Student object.
+        # Output: A string that shows completion.
+        # How: Sets the student's active attribute to False if the input is a Student object.
         if isinstance(student, Student):
             student.active = False
             return "Completed!"
 
     def createStudent(self, person):
-        # YOUR CODE STARTS HERE
+        # Task: To create a new student profile.
+        # Input: person as a Person object.
+        # Output: A Student object.
+        # How: Returns a new Student object that is linked to the person's information.
         if isinstance(person, Person):
             return Student(person.name, person.get_ssn(), 'Freshman')
 
@@ -406,7 +493,10 @@ class Student(Person):
     '''
     def __init__(self, name, ssn, year):
         random.seed(1)
-        # YOUR CODE STARTS HERE
+        # Task: To set up a full student profile with a billing account.
+        # Input: name (str), ssn (str), year (str).
+        # Output: None.
+        # How: Sets up personal fields using super(), opens a blank semester list, and creates a student account.
         super().__init__(name, ssn)
         self.classCode = year
         self.semesters = {}
@@ -416,13 +506,19 @@ class Student(Person):
 
 
     def __str__(self):
-        # YOUR CODE STARTS HERE
+        # Task: To return a summary string of the student.
+        # Input: None.
+        # Output: A string containing student details.
+        # How: Combines the student's name, calculated system ID, and current class year code.
         return f"Student({self.name}, {self.id}, {self.classCode})"
 
     __repr__ = __str__
 
     def __createStudentAccount(self):
-        # YOUR CODE STARTS HERE
+        # Task: To create a student account.
+        # Input: None.
+        # Output: A StudentAccount object or None.
+        # How: Returns a new StudentAccount object that is linked to the student if they are active, otherwise it returns None.
         if self.active:
             return StudentAccount(self)
         return None
@@ -430,7 +526,10 @@ class Student(Person):
 
     @property
     def id(self):
-        # YOUR CODE STARTS HERE
+        # Task: To create the student's system ID.
+        # Input: None.
+        # Output: A string representing the student's ID.
+        # How: Combines the student's initials with the last four digits of their SSN.
         names = self.name.split()
         initials = ""
         for n in names:
@@ -440,7 +539,10 @@ class Student(Person):
         return f"{initials}{last_four}"
 
     def registerSemester(self):
-        # YOUR CODE STARTS HERE
+        # Task: To open a new blank semester for the student.
+        # Input: None.
+        # Output: An error string or None.
+        # How: Checks if the student is active and clear of holds, picks the next number key, and updates their class level.
         if not self.active or self.hold:
             return "Unsuccessful operation"
         if not self.semesters:
@@ -462,7 +564,10 @@ class Student(Person):
 
 
     def enrollCourse(self, cid, catalog):
-        # YOUR CODE STARTS HERE
+        # Task: To add a class to the student's current semester list.
+        # Input: cid (str), catalog( the master Catalog object).
+        # Output: A string message showing the result.
+        # How: Ignores extra spaces to find a catalog match, then checks for duplicates, adds the class object, and charges their account.
         if not self.active or self.hold:
             return "Unsuccessful operation"
         
@@ -490,7 +595,10 @@ class Student(Person):
         return "Course added successfully"
 
     def dropCourse(self, cid):
-        # YOUR CODE STARTS HERE
+        # Task: To remove a course from the current semester and handle a refund.
+        # Input: cid (str).
+        # Output: A string that showing the result.
+        # How: Looks up the class in the active term, removes it, and pays back half the cost.
         if not self.active or self.hold:
             return "Unsuccessful operation"
         if not self.semesters:
@@ -515,7 +623,10 @@ class Student(Person):
         return "Course dropped successfully"
 
     def getLoan(self, amount):
-        # YOUR CODE STARTS HERE
+        # Task: To give a student financial loan money if they qualify.
+        # Input: amount as an integer or float.
+        # Output: A string.
+        # How: Checks if the schedule is full-time, then makes a new Loan object, saves it, and subtracts the money from their bill.
         if not self.active:
             return "Unsuccessful operation"
         if not self.semesters:
@@ -531,9 +642,6 @@ class Student(Person):
         self.account.loans[new_loan.loan_id] = new_loan
         self.account.makePayment(amount)
         return "Completed!"
-
-
-
 
 class StudentAccount:
     '''
@@ -598,14 +706,20 @@ class StudentAccount:
     CREDIT_PRICE = 1000
     
     def __init__(self, student):
-        # YOUR CODE STARTS HERE
+        # Task: To set up a new account for a student.
+        # Input: student - the Student object who owns this account.
+        # Output: None.
+        # How: Saves the student's info, sets their balance to 0, and creates an empty dictionary for loans.
         self.student = student
         self.balance = 0
         self.loans = {}
 
 
     def __str__(self):
-        # YOUR CODE STARTS HERE
+        # Task: Show the student's account info as text.
+        # Input: None.
+        # Output: A string with the name, ID, and balance.
+        # How: Converts the balance to a clean string format and prints out the account details.
         bal_str = f"{self.balance:g}" if isinstance(self.balance, float) else str(self.balance)
         return f"Name: {self.student.name}\nID: {self.student.id}\nBalance: ${bal_str}"
 
@@ -613,13 +727,19 @@ class StudentAccount:
 
 
     def makePayment(self, amount):
-        # YOUR CODE STARTS HERE
+        # Task: Make a payment on the student's account.
+        # Input: amount as an integer or float.
+        # Output: The new balance.
+        # How: Subtracts the payment amount from the balance.
         self.balance -= amount
         return self.balance
 
 
     def chargeAccount(self, amount):
-        # YOUR CODE STARTS HERE
+        # Task: Charge the student's account.
+        # Input: amount as an integer or float.
+        # Output: The updated balance.
+        # How: Adds the charge amount to the balance.
         self.balance += amount
         return self.balance
 
